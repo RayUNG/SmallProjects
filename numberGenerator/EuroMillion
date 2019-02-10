@@ -1,0 +1,53 @@
+package com.ray88u;
+
+import java.util.Arrays;
+
+/**
+ * @author razva
+ *
+ */
+public class EuroMillion {
+
+	private String nameSet;
+	private int[] numbers = new int[5];
+	private int[] stars = new int[2];
+	
+	public EuroMillion(String nameSet) {
+		super();
+		this.nameSet = nameSet;
+	}
+
+	public int[] getNumbers() {
+		return numbers;
+	}
+
+	public int[] getStars() {
+		return stars;
+	}
+	
+	public void populateNumbers() {
+		
+		for (int i = 0; i < this.numbers.length; i++) {
+			this.numbers[i] = (int) (Math.random() * 50 + 1 );
+		}
+		Arrays.sort(this.numbers);		
+	}
+	
+	public void populateStars() {
+		
+		for (int i = 0; i < this.stars.length; i++) {
+			this.stars[i] = (int) (Math.random() * 12 + 1 );
+		}
+		Arrays.sort(this.stars);	
+		
+	}
+
+	@Override
+	public String toString() {
+		return "EuroMillion [nameSet=" + nameSet + ", numbers=" + Arrays.toString(numbers) + ", stars="
+				+ Arrays.toString(stars) + "]";
+	}
+	
+	
+
+}
