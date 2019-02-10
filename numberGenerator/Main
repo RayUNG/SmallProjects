@@ -1,0 +1,95 @@
+/**
+ * 
+ */
+package com.ray88u;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * @author razva
+ *
+ */
+public class Main {
+
+	public static List<EuroMillion> tickets = new ArrayList<EuroMillion>();
+	public static EuroMillion ticket = new EuroMillion("0");
+
+	public static void main(String[] args) {
+
+		System.out.println("\n    Welcome to EuroMillions random tickets generator.\n");
+		menu();
+
+	}
+
+	private static void tickets(int noTickets) {
+		for (int i = 0; i < noTickets; i++) {
+			ticket = new EuroMillion(Integer.toString(i + 1));
+			ticket.populateNumbers();
+			ticket.populateStars();
+			tickets.add(ticket);
+		}
+	}
+
+	private static void menu() {
+		Scanner scanner = new Scanner(System.in);
+		boolean quit = false;
+		int noTickets = 0;
+
+		showMenu();
+		while (!quit) {
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+
+			case 0:
+				System.out.println("See you soon!");
+				quit = true;
+				break;
+			case 1:
+				System.out.println("Enter the number now:");
+				noTickets = scanner.nextInt();
+				tickets(noTickets);
+				System.out.println("You have enter: " + noTickets + " tickets.");
+				System.out.println("Please enter your next option.");
+				break;
+			case 2:
+				if (tickets.size() > 0) {
+					for (int i = 0; i < tickets.size(); i++) {
+						System.out.println(tickets.get(i).toString());
+						System.out.println("-------------------------");
+					}
+				} else {
+					System.out.println("You have no tickets.");
+				}
+				System.out.println("Please enter your next option.");
+				break;
+			case 3:
+				tickets.removeAll(tickets);
+				if(tickets.size() <= 0) {
+					System.out.println("Tickets successfully deleted.");
+				}
+				System.out.println("Please enter your next option.");
+				break;
+			case 4:
+				showMenu();
+				break;
+			}
+
+		}
+		scanner.close();
+	}
+
+	private static void showMenu() {
+		System.out.println("Menu:\n");
+		System.out.println("1 - To enter the numbers of tickets you want to generate:");
+		System.out.println("2 - To show the tickets.");
+		System.out.println("3 - To delete all tickets.");
+		System.out.println("4 - To show the menu options again.");
+		System.out.println("0 - To Quit.");
+		System.out.println("Please enter your option now:");
+	}
+
+}
