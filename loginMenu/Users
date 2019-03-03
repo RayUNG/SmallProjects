@@ -1,0 +1,61 @@
+/**
+ * 
+ */
+package com.ray88u;
+
+/**
+ * @author razva
+ *
+ */
+public class Users {
+	
+	private final String password;
+	private String firstName;
+	private String lastName;
+	private String email;
+	
+	
+
+	public Users(String password) {
+		super();
+		this.password = password;
+		this.firstName = null;
+		this.lastName = null;
+		this.email = null;
+	}
+	
+	
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+	
+	public boolean checkPass() {
+		if(this.password == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	
+	
+}
