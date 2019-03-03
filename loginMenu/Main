@@ -1,0 +1,148 @@
+/**
+ * 
+ */
+package com.ray88u;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * @author razva
+ *
+ */
+public class Main {
+
+	private static Map<String, Users> user = new HashMap<String, Users>();
+
+	public static void main(String[] args) {
+
+		menu();
+
+	}
+
+	// switch case menu for the user link with the menuList method to show the
+	// choice list
+	public static void menu() {
+		menuList();
+		Scanner scanner = new Scanner(System.in);
+		boolean quit = false;
+		while (!quit) {
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+			if (choice > 4 || choice < 0) {
+				System.out.println("\nPlease enter a valid option!\n");
+				menuList();
+			}
+			switch (choice) {
+			case 0:
+				System.out.println("Quit menu!");
+				quit = true;
+				break;
+			case 1:
+				userList();
+				break;
+			case 2:
+				signIn();
+				break;
+			case 3:
+				signUp();
+				break;
+			case 4:
+				menuList();
+				break;
+			}
+		}
+		scanner.close();
+	}
+
+	// method to print the user menu list
+	public static void menuList() {
+		System.out.println("User Menu");
+		System.out.println("Available actions:\npress:");
+		System.out.println("1.Show users list.");
+		System.out.println("2.Sign in.");
+		System.out.println("3.Sign up.");
+		System.out.println("4.Show menu list.");
+		System.out.println("0.Quit.");
+	}
+
+	// shows the list of users or return null if empty
+	private static void userList() {
+		if (!user.isEmpty()) {
+			for (String key : user.keySet()) {
+				System.out.println(key);
+				System.out.println("Press 4 to show menu list again.");
+			}
+		} else {
+			System.out.println("No users yet!/n");
+			menuList();
+		}
+	}
+
+	// create user
+	private static void signIn() {
+		String userName = null;
+		String password = null;
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("What is your username?");
+		userName = scanner.next();
+		scanner.nextLine();
+		if (user.containsKey(userName)) {
+			for (int i = 0; i < 4; i++) {
+				if (i == 3) {
+					System.out.println("Your account it's block because you have enter 3 wrong passwords.");
+				} else {
+					System.out.println("\nPlease enter your password:");
+					password = scanner.next();
+					if (user.get(userName).getPassword() == password) {
+						System.out.println("You are login.");
+						i = 4;
+					} else {
+						System.out.println("Password is incorect. You have " + (2 - i) + " more attemps");
+					}
+				}
+			}
+		} else {
+			System.out.println("Wrong username.");
+			signIn();
+		}
+		scanner.close();
+	}
+
+	private static void signUp() {
+		String userName = null;
+		String firstName = null;
+		String lastName = null;
+		String password = null;
+		String email = null;
+		boolean check = true;
+
+		while (check) {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Enter the desire username:");
+			userName = scanner.next();
+			scanner.nextLine();
+			if (!user.containsKey(userName)) {
+				System.out.println("Enter the password");
+				password = scanner.next();
+
+				user.put(userName, new Users(password));
+				System.out.println("What is your first name?");
+				firstName = scanner.next();
+				user.get(userName).setFirstName(firstName);
+				System.out.println("What is your last name?");
+				lastName = scanner.next();
+				user.get(userName).setLastName(lastName);
+				System.out.println("What is your email?");
+				email = scanner.next();
+				user.get(userName).setEmail(email);
+				check = false;
+			} else {
+				System.out.println("Username is already in use, please select another username");
+			}
+		}
+		menuList();
+	}
+
+}
